@@ -1,5 +1,5 @@
 package src;
-public class ActeChirurgical extends Soin {
+public class ActeChirurgical extends Soin implements Urgence {
     private Salle salle;
     private int duree;
     private int urgence;
