@@ -3,14 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Personnel extends Personne {
+public abstract class Personnel extends Personne implements Planifiable {
     private String matricule;
     private String service;
+    private List<Creneau> planning;
 
     public Personnel(String nom, String prenom, int id, String matricule, String service) {
         super(nom, prenom, id);
         this.matricule = matricule;
         this.service = service;
+        this.planning = new ArrayList<>();
     }
 
     public String getMatricule() {

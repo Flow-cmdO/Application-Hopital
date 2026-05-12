@@ -22,7 +22,7 @@ public class Infirmier extends Personnel implements Planifiable {
 
 
     @Override
-    public void ajouterCreneau(LocalDateTime debut, LocalDateTime fin) {
+    public void planifier(LocalDateTime debut, LocalDateTime fin) {
 
     }
 
