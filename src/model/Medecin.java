@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Medecin extends Personnel implements Soignable, Planifiable {
     private int numOrdre;
     private String specialite;
@@ -33,7 +34,9 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
         this.specialite = specialite;
     }
 
+    // Gestion patient
     public void ajouterPatient(Patient p){
+        if (p==null) { throw new IllegalArgumentException("Le patient n'existe pas."); }
         patients.add(p);
     }
 
@@ -45,24 +48,33 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
         return new ArrayList<>(patients);
     }
 
+    // Planifiable
     @Override
-    public List<LocalDateTime[]> getPlanning() {
-        return planning;
+    public void ajouterCreneau(LocalDateTime debut, LocalDateTime fin) {
+        if  (!debut.isBefore(fin) || debut.isEqual(fin)) {
+            throw new IllegalArgumentException("Créaneau invalide : la date du début doit être antérieure à la date de fin.");
+        }
+        planning.add(new LocalDateTime[]{debut, fin});
     }
 
     @Override
-    public void ajouterCreneau(LocalDateTime debut, LocalDateTime fin) {
-
+    public List<LocalDateTime[]> getPlanning() {
+        return new ArrayList<>(planning);
     }
 
     @Override
     public boolean estDisponible(LocalDateTime debut, LocalDateTime fin) {
-        return false;
+        return planning.stream().noneMatch(creneau ->
+                debut.isBefore(creneau[1]) && fin.isAfter(creneau[0]));
     }
 
+    // Soignable
     @Override
     public void ajouterSoin(Soin soin) {
-
+        if (soins.isEmpty()) {
+            throw new IllegalArgumentException("Le soin n'existe pas.");
+        }
+        soins.add(soin);
     }
 
     @Override
@@ -72,7 +84,25 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
 
     @Override
     public String getDossierMedical() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Dossier Medical - Dr. ")
+                .append(getNom()).append(" ").append(getPrenom())
+                .append(" [").append(getMatricule()).append("; ").append(getService())
+                .append("; ").append(specialite).append("]\n");
+
+        if (patients.isEmpty()) {
+            sb.append("Aucun patient pris en charge par ce medecin.");
+        } else {
+            sb.append("\nPatient(s) suivis : ");
+            patients.forEach(p-> sb.append("- ").append(p).append("\n"));
+        }
+        if (soins.isEmpty()) {
+            sb.append("Aucun soin autorisé par ce medecin.");
+        } else {
+            sb.append("\nSoin(s) autorisé : ");
+            soins.forEach(s -> sb.append("- ").append(s).append("\n"));
+        }
+        return sb.toString();
     }
 
     @Override

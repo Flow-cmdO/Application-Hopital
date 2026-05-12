@@ -20,10 +20,13 @@ public class Infirmier extends Personnel implements Planifiable {
         this.specialite = specialite;
     }
 
-
+    // Planifiable
     @Override
     public void ajouterCreneau(LocalDateTime debut, LocalDateTime fin) {
-
+        if  (!debut.isBefore(fin) || debut.isEqual(fin)) {
+            throw new IllegalArgumentException("Créaneau invalide : la date du début doit être antérieure à la date de fin.");
+        }
+        planning.add(new LocalDateTime[]{debut, fin});
     }
 
     @Override
@@ -33,7 +36,8 @@ public class Infirmier extends Personnel implements Planifiable {
 
     @Override
     public boolean estDisponible(LocalDateTime debut, LocalDateTime fin) {
-        return false;
+        return planning.stream().noneMatch(creneau ->
+                debut.isBefore(creneau[1]) && fin.isAfter(creneau[0]));
     }
 
     @Override
