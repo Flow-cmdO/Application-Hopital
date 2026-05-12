@@ -1,4 +1,4 @@
-package src;
+package model;
 
 public abstract class Soin {
     private String id;
@@ -22,7 +22,7 @@ public abstract class Soin {
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }

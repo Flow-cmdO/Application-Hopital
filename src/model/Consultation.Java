@@ -1,4 +1,4 @@
-package src;
+package model;
 public class Consultation extends Soin {
     private String motif;
     private String ordonnance;

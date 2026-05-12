@@ -1,4 +1,4 @@
-package src;
+package model;
 public class Lit {
     private String id;
     private boolean occupe;

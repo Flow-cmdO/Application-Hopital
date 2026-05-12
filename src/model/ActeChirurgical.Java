@@ -1,4 +1,4 @@
-package src;
+package model;
 public class ActeChirurgical extends Soin implements Urgence {
     private Salle salle;
     private int duree;
