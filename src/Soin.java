@@ -1,4 +1,5 @@
 package src;
+
 public abstract class Soin {
     private String id;
     private String date;
@@ -22,7 +23,10 @@ public abstract class Soin {
         return description;
     }
     
-    public abstract String decrire();
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    // public abstract String decrire();
 
     @Override
     public String toString() {
