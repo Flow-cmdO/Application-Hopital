@@ -2,7 +2,6 @@ package controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import model.*;
 
 import java.io.IOException;
 
@@ -17,8 +16,8 @@ public class IndexServlet extends HttpServlet {
         req.setAttribute("totalSoins",       SoinServlet.getRegistre().taille());
         req.setAttribute("totalSalles",      SalleServlet.getRegistre().taille());
         req.setAttribute("sallesDisponibles",
-            SalleServlet.getRegistre().getTous().stream()
-                .filter(Salle::isDisponible).count()
+                SalleServlet.getRegistre().getTous().stream()
+                        .filter(s -> s.isDisponible()).count()
         );
 
         req.getRequestDispatcher("/index.jsp").forward(req, resp);

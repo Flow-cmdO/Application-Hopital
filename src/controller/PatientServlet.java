@@ -3,7 +3,7 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import model.Patient;
-import model.Registre;
+import util.Registre;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Patientservlet extends HttpServlet {
 
     private static final Registre<Patient> registre = new Registre<>();
-
+    public static Registre<Patient> getRegistre() { return registre; }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
