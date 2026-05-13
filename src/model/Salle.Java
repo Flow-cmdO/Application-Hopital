@@ -1,16 +1,22 @@
 package model;
+import exception.CapaciteDepasseeException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Salle {
+public class Salle implements Entite {
+    private int id;
     private String numero;
     private String type;
-    private List<Lit> lits;
+    private int capacite;
+    private final List<Lit> lits = new ArrayList<>();
 
-    public Salle(String numero, String type) {
+    public Salle(int id, String numero, String type, int capacite) {
+        this.id= id;
         this.numero = numero;
         this.type = type;
-        this.lits = new ArrayList<>();
+        this.capacite = capacite;
     }
 
     public String getNumero() {
@@ -25,18 +31,43 @@ public class Salle {
         return lits;
     }
 
-    public boolean isDisponible() {
-        for (Lit lit : lits) {
-            if (lit.isOccupe()) {
-                return false;
-            }
-        }
-        return true;
+    // Entite
+    @Override
+    public int getId() {return id;}
+
+    @Override
+    public String getLabel(){
+        return "Salle "+numero+" ("+type+")";
     }
 
-    public void ajouterLit(Lit lit) {
+    public boolean isDisponible(){
+        return lits.stream().anyMatch(lit -> !lit.isOccupe());
+    }
+
+    public List<Lit> getLitsLibres() {
+        return lits.stream()
+                .filter(lit -> !lit.isOccupe())
+                .collect(Collectors.toList());
+    }
+
+    public List<Lit> getLitsOccupe() {
+        return lits.stream()
+                .filter(Lit::isOccupe)
+                .collect(Collectors.toList());
+    }
+
+    public double getTauxOccupation(){
+        if(lits.isEmpty()) return 0;
+        return (double) getLitsOccupe().size()/lits.size();
+    }
+
+    public void ajouterLit(Lit lit) throws CapaciteDepasseeException {
+        if (lits.size() > capacite) {
+            throw new CapaciteDepasseeException(numero, capacite);
+        }
         lits.add(lit);
     }
+
 
     @Override
     public String toString() {
