@@ -6,8 +6,8 @@ public class Consultation extends Soin {
     private String motif;
     private String ordonnance;
 
-    public Consultation(String id, LocalDateTime date, double cout, Patient patient, Medecin medecin, String description, String motif, String ordonnance) {
-        super(id, date, description, cout, patient, medecin);
+    public Consultation(String id, LocalDateTime date, double cout, Patient patient, Medecin medecin, String motif, String ordonnance) {
+        super(id, date, cout, patient, medecin);
         this.motif = motif;
         this.ordonnance = ordonnance;
     }
@@ -25,10 +25,13 @@ public class Consultation extends Soin {
     }
 
     @Override
+    public String getTypeSoin(){
+        return "Consultation";
+    }
+    @Override
     public String toString() {
         return "Consultation [" +
                 ", date='" + getDate() +
-                ", description='" + getDescription() +
                 ", motif='" + motif
                 + (ordonnance != null ? ", ordonnance=" + ordonnance : "")+
                 "]";

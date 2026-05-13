@@ -5,20 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Infirmier extends Personnel implements Planifiable {
-    private String specialite;
     private final List<LocalDateTime[]> planning = new ArrayList<>();
 
-    public Infirmier(String nom, String prenom, int id, String matricule, String service, String specialite) {
+    public Infirmier(String nom, String prenom, int id, String matricule, String service) {
         super(nom, prenom, id, matricule, service);
-        this.specialite = specialite;
     }
 
-    public String getSpecialite() {
-        return specialite;
-    }
-    public void setSpecialite(String specialite) {
-        this.specialite = specialite;
-    }
 
     // Planifiable
     @Override
@@ -43,7 +35,7 @@ public class Infirmier extends Personnel implements Planifiable {
     @Override
     public String toString(){
         return "Infirmier ["+getNom()+" "+ getPrenom()+", "+getMatricule()+", "+getService()+"]\n"
-                + "service= "+getService()+", spécialité= "+ specialite+"\n";
+                + "service= "+getService()+"\n";
     }
 }
 

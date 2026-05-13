@@ -1,0 +1,9 @@
+id,nom,prenom,age,maladie,numeroDossier
+1,Martin,Jean,45,Diabète de type 2,D-001
+2,Dubois,Marie,62,Hypertension artérielle,D-002
+3,Bernard,Lucas,34,Appendicite,D-003
+4,Petit,Sophie,78,Insuffisance cardiaque,D-004
+5,Robert,Thomas,51,Pneumonie,D-005
+6,Moreau,Claire,29,Fracture du radius,D-006
+7,Laurent,Pierre,67,Cancer du poumon,D-007
+8,Simon,Emma,43,Migraine chronique,D-008

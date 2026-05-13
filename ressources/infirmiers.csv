@@ -1,0 +1,8 @@
+id,nom,prenom,matricule,service
+201,Blanc,Julie,I-201,Cardiologie
+202,Noir,Kevin,I-202,Urgences
+203,Gris,Laura,I-203,Chirurgie
+204,Brun,Antoine,I-204,Réanimation
+205,Vert,Camille,I-205,Pédiatrie
+206,Bleu,Maxime,I-206,Neurologie
+207,Rouge,Léa,I-207,Urgences

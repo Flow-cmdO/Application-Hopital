@@ -1,0 +1,9 @@
+id,type,description,date,cout,patient,medecin,motif,ordonnance,typeChirurgie,salle,urgence
+301,CONSULTATION,Consultation de suivi diabète,2024-01-10T09:00,60.0,1,101,Contrôle glycémie,Metformine 500mg,,,
+302,CONSULTATION,Consultation hypertension,2024-01-11T10:30,60.0,2,101,Suivi tensionnel,Amlodipine 5mg,,,
+303,ACTE_CHIRURGICAL,Appendicectomie en urgence,2024-01-12T14:00,2500.0,3,103,,,Appendicectomie,Bloc A,2
+304,CONSULTATION,Bilan cardiaque,2024-01-13T08:45,80.0,4,101,Insuffisance cardiaque,Furosémide 40mg,,,
+305,CONSULTATION,Consultation pneumonie,2024-01-14T11:00,60.0,5,102,Infection pulmonaire,Amoxicilline 1g,,,
+306,ACTE_CHIRURGICAL,Réduction fracture radius,2024-01-15T16:00,1800.0,6,103,,,Ostéosynthèse,Bloc B,3
+307,ACTE_CHIRURGICAL,Craniotomie décompressive,2024-01-16T02:00,5000.0,7,104,,,Neurochirurgie,Bloc A,1
+308,CONSULTATION,Consultation migraines,2024-01-17T14:15,60.0,8,104,Céphalées chroniques,Sumatriptan 50mg,,,
