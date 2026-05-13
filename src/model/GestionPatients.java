@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GestionPatients {
 
@@ -28,4 +30,20 @@ public class GestionPatients {
         if (!croissant) Collections.reverse(trie);
         return trie;
     }
+
+    // nombre de patients par statut
+    public Map<Patient.Statut, Long> nombreParStatut() {
+        return patients.stream().collect(Collectors.groupingBy(Patient::getStatut, Collectors.counting()));
+    }
+
+    // âge moyen des patients
+    public double ageMoyen() {
+        return patients.stream().mapToInt(Patient::getAge).average().orElse(0);
+    }
+
+    // nombre total de soins
+    public int nombreTotalSoins() {
+        return patients.stream().mapToInt(p -> p.getSoins().size()).sum();
+    }
+
 }
