@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PatientServlet extends HttpServlet {
+public class Patientservlet extends HttpServlet {
 
     private static final Registre<Patient> registre = new Registre<>();
 

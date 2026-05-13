@@ -7,7 +7,11 @@
 
     <display-name>Gestionnaire Hôpital</display-name>
 
-
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>controller.IndexServlet</servlet-class>
+    </servlet>
+    
     <servlet>
         <servlet-name>PatientServlet</servlet-name>
         <servlet-class>controller.PatientServlet</servlet-class>
@@ -28,7 +32,11 @@
         <servlet-class>controller.SalleServlet</servlet-class>
     </servlet>
 
-
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>PatientServlet</servlet-name>
         <url-pattern>/patients</url-pattern>
