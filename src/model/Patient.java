@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Patient extends Personne implements Soignable, Facturable {
 
+    private List<String> antecedents;
     public enum Statut { EN_ATTENTE, ADMIS, SORTI }
     private Statut statut;
     private int age;
@@ -22,6 +23,7 @@ public class Patient extends Personne implements Soignable, Facturable {
         this.numeroDossier = numeroDossier;
         this.soins = new ArrayList<>();
         this.statut = Statut.EN_ATTENTE;
+        this.antecedents = new ArrayList<>();
     }
 
     // Getters
@@ -37,6 +39,9 @@ public class Patient extends Personne implements Soignable, Facturable {
     public void admettre() { this.statut = Statut.ADMIS; }
     public void sortir() { this.statut = Statut.SORTI; }
     public Statut getStatut() { return statut; }
+
+    public void ajouterAntecedent(String antecedent) { antecedents.add(antecedent); }
+    public List<String> getAntecedents() { return antecedents; }
 
     // Implémentation de Soignable
     @Override
