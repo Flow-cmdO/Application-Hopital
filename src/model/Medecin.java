@@ -36,7 +36,7 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
 
     // Gestion patient
     public void ajouterPatient(Patient p){
-        if (p==null) { throw new IllegalArgumentException("Le patient n'existe pas."); }
+        if (p==null) { throw new IllegalArgumentException("Le patient ne peut pas être vide."); }
         patients.add(p);
     }
 
@@ -85,10 +85,11 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
     @Override
     public String getDossierMedical() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Dossier Medical - Dr. ")
-                .append(getNom()).append(" ").append(getPrenom())
-                .append(" [").append(getMatricule()).append("; ").append(getService())
-                .append("; ").append(specialite).append("]\n");
+        sb.append("[Dossier Medical - Dr. ")
+                .append(getNom()).append(" ").append(getPrenom()).append("]")
+                .append("\nN°").append(getMatricule())
+                .append("\nService=").append(getService())
+                .append("\nSpécialité=").append(specialite);
 
         if (patients.isEmpty()) {
             sb.append("Aucun patient pris en charge par ce medecin.");

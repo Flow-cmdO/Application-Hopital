@@ -13,10 +13,10 @@ public class Registre<T extends Entite> {
     // Create
     public void create(T entite) {
         if (entites.isEmpty()) {
-            throw new IllegalArgumentException("L'entite n'existe pas.");
+            throw new IllegalArgumentException("L'entité ne peut pas être vide.");
         }
         if (entites.containsKey(entite.getId())) {
-            throw new IllegalArgumentException("L'entite avec l'id "+entite.getId()+" existe déjà.");
+            throw new IllegalArgumentException("L'entité avec l'id "+entite.getId()+" existe déjà.");
         }
         entites.put(entite.getId(), entite);
     }
@@ -38,7 +38,7 @@ public class Registre<T extends Entite> {
     // Update
     public void update(T entite) {
         if (entites.isEmpty()) {
-            throw new IllegalArgumentException("L'entite n'existe pas.");
+            throw new IllegalArgumentException("L'entité ne peut pas être vide.");
         }
         if (!entites.containsKey(entite.getId())) {
             throw new IllegalArgumentException("Aucune entité avec l'id " + entite.getId() + " trouvée.");
@@ -49,7 +49,7 @@ public class Registre<T extends Entite> {
     // Delete
     public void delete(int id) {
         if (entites.isEmpty()) {
-            throw new IllegalArgumentException("L'entite n'existe pas.");
+            throw new IllegalArgumentException("L'entité ne peut pas être vide.");
         }
         if (!entites.containsKey(id)) {
             throw new IllegalArgumentException("Aucune entité avec l'id " + id + " trouvée.");

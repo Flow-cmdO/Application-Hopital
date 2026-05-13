@@ -27,11 +27,11 @@ public class Salle {
 
     public boolean isDisponible() {
         for (Lit lit : lits) {
-            if (lit.isDisponible()) {
-                return true;
+            if (lit.isOccupe()) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void ajouterLit(Lit lit) {
@@ -40,10 +40,10 @@ public class Salle {
 
     @Override
     public String toString() {
-        return "Salle{" +
-                "numero='" + numero + '\'' +
-                ", type='" + type + '\'' +
+        return "Salle [" +
+                "numero='" + numero +
+                ", type='" + type  +
                 ", lits=" + lits +
-                '}';
+                ']';
     }
 }
