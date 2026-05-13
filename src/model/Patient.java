@@ -1,17 +1,23 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Patient extends Personne implements Soignable, Facturable {
 
     private int age;
     private String maladie;
     private String numeroDossier;
 
+    private List<Soin> soins;
+
     // Constructeur
-    public Patient(String nom, String prenom, int age, String maladie, String numeroDossier) {
-        super(nom, prenom);
+    public Patient(String nom, String prenom, int id, int age, String maladie, String numeroDossier) {
+        super(nom, prenom, id);
         this.age = age;
         this.maladie = maladie;
         this.numeroDossier = numeroDossier;
+        this.soins = new ArrayList<>();
     }
 
     // Getters
@@ -23,14 +29,23 @@ public class Patient extends Personne implements Soignable, Facturable {
     public void setAge(int age) { this.age = age; }
     public void setMaladie(String maladie) { this.maladie = maladie; }
 
-    // Implémentation de l'interface Soignable
+    // Implémentation de Soignable
     @Override
-    public void soigner() {
-        System.out.println("Le patient " + getNom() + " est en cours de soins pour : " + maladie);
+    public void ajouterSoin(Soin soin) {
+        soins.add(soin);
     }
 
-    // Implémentation de l'interface Facturable
-    // La logique de calcul sera définie plus tard
+    @Override
+    public List<Soin> getSoins() {
+        return soins;
+    }
+
+    @Override
+    public String getDossierMedical() {
+        return "Dossier n°" + numeroDossier + " - Maladie : " + maladie;
+    }
+
+    // Implémentation de Facturable
     @Override
     public double calculerFacture() {
         return 0.0;
@@ -39,7 +54,6 @@ public class Patient extends Personne implements Soignable, Facturable {
     // Affichage lisible d'un patient
     @Override
     public String toString() {
-        return "Patient{nom=" + getNom() + ", age=" + age +
-                ", maladie=" + maladie + ", dossier=" + numeroDossier + "}";
+        return "Patient{nom=" + getNom() + ", age=" + age + ", maladie=" + maladie + ", dossier=" + numeroDossier + "}";
     }
 }
