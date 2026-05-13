@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Personne {
+public abstract class Personne implements Entite {
     private String nom;
     private String prenom;
     private int id;
@@ -23,13 +23,22 @@ public abstract class Personne {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+    public void setId(int id) {this.id = id;}
 
+    // Entite
+    @Override
     public int getId() {
         return id;
     }
+
+    @Override
+    public String getLabel() {
+        return nom+" "+prenom;
+    }
+
     @Override
     public String toString() {
-        return "[nom=" + nom + ", prenom=" + prenom + "]";
+        return "Personne [nom=" + nom + ", prenom=" + prenom + "]";
 
     }
 }

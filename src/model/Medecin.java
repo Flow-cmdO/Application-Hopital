@@ -1,5 +1,7 @@
 package model;
 
+import exception.MedecinIndisponibleException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +37,8 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
     }
 
     // Gestion patient
-    public void ajouterPatient(Patient p){
-        if (p==null) { throw new IllegalArgumentException("Le patient n'existe pas."); }
+    public void ajouterPatient(Patient p) {
+        if (p==null) { throw new IllegalArgumentException("Le patient ne peut pas être vide."); }
         patients.add(p);
     }
 
@@ -50,11 +52,11 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
 
     // Planifiable
     @Override
-    public void ajouterCreneau(LocalDateTime debut, LocalDateTime fin) {
-        if  (!debut.isBefore(fin) || debut.isEqual(fin)) {
-            throw new IllegalArgumentException("Créaneau invalide : la date du début doit être antérieure à la date de fin.");
-        }
-        planning.add(new LocalDateTime[]{debut, fin});
+    public void ajouterCreneau(LocalDateTime debut, LocalDateTime fin) throws MedecinIndisponibleException {
+            if (!debut.isBefore(fin) || debut.isEqual(fin)) {
+                throw new MedecinIndisponibleException(getLabel(), debut, fin);
+            }
+            planning.add(new LocalDateTime[]{debut, fin});
     }
 
     @Override
@@ -85,10 +87,11 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
     @Override
     public String getDossierMedical() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Dossier Medical - Dr. ")
-                .append(getNom()).append(" ").append(getPrenom())
-                .append(" [").append(getMatricule()).append("; ").append(getService())
-                .append("; ").append(specialite).append("]\n");
+        sb.append("[Dossier Medical - Dr. ")
+                .append(getNom()).append(" ").append(getPrenom()).append("]")
+                .append("\nN°").append(getMatricule())
+                .append("\nService=").append(getService())
+                .append("\nSpécialité=").append(specialite);
 
         if (patients.isEmpty()) {
             sb.append("Aucun patient pris en charge par ce medecin.");

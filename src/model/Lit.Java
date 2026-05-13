@@ -22,9 +22,9 @@ public class Lit {
 
     @Override
     public String toString() {
-        return "Lit{" +
-                "id='" + id + '\'' +
+        return "Lit [" +
+                "id=" + id +
                 ", occupe=" + occupe +
-                '}';
+                ']';
     }
 }
