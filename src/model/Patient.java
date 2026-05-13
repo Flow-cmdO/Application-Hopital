@@ -65,7 +65,7 @@ public class Patient extends Personne implements Soignable, Facturable {
         return 0.0;
     }
 
-    // Affichage lisible d'un patient
+    // Affichage d'un patient
     @Override
     public String toString() {
         return "Patient{nom=" + getNom() + ", age=" + age + ", maladie=" + maladie + ", dossier=" + numeroDossier + "}";
