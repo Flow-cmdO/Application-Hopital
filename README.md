@@ -12,3 +12,4 @@ Crée par VOUSEMER Doryan, TANOH Laetitia, LOKO Marie-Paule et NICAUD Rosalie
 ## Liste des fonctionnalités
 
 ## Répartition des tâches entre les membres 
+TANOH Laetitia : Diagramme UML, 
