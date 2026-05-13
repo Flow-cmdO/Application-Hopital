@@ -3,8 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Patient extends Personne implements Soignable, Facturable {
 
+    public enum Statut { EN_ATTENTE, ADMIS, SORTI }
+    private Statut statut;
     private int age;
     private String maladie;
     private String numeroDossier;
@@ -18,6 +21,7 @@ public class Patient extends Personne implements Soignable, Facturable {
         this.maladie = maladie;
         this.numeroDossier = numeroDossier;
         this.soins = new ArrayList<>();
+        this.statut = Statut.EN_ATTENTE;
     }
 
     // Getters
@@ -28,6 +32,11 @@ public class Patient extends Personne implements Soignable, Facturable {
     // Setters
     public void setAge(int age) { this.age = age; }
     public void setMaladie(String maladie) { this.maladie = maladie; }
+
+    //methodes
+    public void admettre() { this.statut = Statut.ADMIS; }
+    public void sortir() { this.statut = Statut.SORTI; }
+    public Statut getStatut() { return statut; }
 
     // Implémentation de Soignable
     @Override
@@ -56,4 +65,6 @@ public class Patient extends Personne implements Soignable, Facturable {
     public String toString() {
         return "Patient{nom=" + getNom() + ", age=" + age + ", maladie=" + maladie + ", dossier=" + numeroDossier + "}";
     }
+
+
 }
