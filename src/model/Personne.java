@@ -3,7 +3,13 @@ package model;
 public abstract class Personne {
     private String nom;
     private String prenom;
-    private String id;
+    private int id;
+
+    public Personne(String nom, String prenom, int id) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.id = id;
+    }
 
     public String getNom() {
         return nom;
@@ -18,12 +24,12 @@ public abstract class Personne {
         this.prenom = prenom;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
     @Override
     public String toString() {
-        return "Patient [nom=" + nom + ", prenom=" + prenom + "]";
+        return "[nom=" + nom + ", prenom=" + prenom + "]";
 
     }
 }
