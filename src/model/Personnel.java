@@ -32,3 +32,4 @@ public abstract class Personnel extends Personne {
                 "prenom=" + getPrenom() +", service=" + service + "]";
    }
 }
+

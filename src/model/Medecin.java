@@ -114,3 +114,4 @@ public class Medecin extends Personnel implements Soignable, Planifiable {
                 + "Spécialité= "+specialite+", N° odre= "+numOrdre;
     }
 }
+

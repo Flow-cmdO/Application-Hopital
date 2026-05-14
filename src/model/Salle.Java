@@ -31,6 +31,17 @@ public class Salle implements Entite {
         return lits;
     }
 
+    public int getCapacite() {
+        return capacite;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setCapacite(int capacite){
+        this.capacite = capacite;
+    }
     // Entite
     @Override
     public int getId() {return id;}

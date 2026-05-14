@@ -7,8 +7,8 @@ public class ActeChirurgical extends Soin implements Urgence {
     private String typeChirurgie;
     private int urgence;
 
-    public ActeChirurgical(String id, LocalDateTime date, Medecin medecin, Patient patient, double cout, Salle salle, int urgence, String typeChirurgie) {
-        super(id, date, cout, patient, medecin);
+    public ActeChirurgical(int id, String nom, LocalDateTime date, Medecin medecin, Patient patient, double cout, Salle salle, int urgence, String typeChirurgie) {
+        super(id, nom, date, cout, patient, medecin);
         if (urgence < 1 || urgence > 5) {
             throw new IllegalArgumentException("Le niveau d'urgence doit être compris entre 1 et 5.");
         }
@@ -41,6 +41,14 @@ public class ActeChirurgical extends Soin implements Urgence {
         this.urgence = urgence;
     }
 
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+    @Override
+    public String getLabel(){
+        return typeChirurgie;
+    }
     @Override
     public String getTypeSoin(){
         return "Acte chirurgical";

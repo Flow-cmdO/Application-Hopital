@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Soin;
 
 public class Patient extends Personne implements Soignable, Facturable {
 
@@ -65,11 +64,11 @@ public class Patient extends Personne implements Soignable, Facturable {
     }
 
     // Facturable
-//    @Override
-//    public double facturer(List<Soin> soins) {
-//        return soins.stream()
-//                .mapToDouble(Soin::getCout)
-//                .sum();
+    @Override
+    public double facturer(List<Soin> soins) {
+        return soins.stream()
+                .mapToDouble(Soin::getCout)
+                .sum();
     }
 
     // Affichage d'un patient
