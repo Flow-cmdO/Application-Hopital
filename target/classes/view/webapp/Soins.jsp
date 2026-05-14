@@ -74,7 +74,6 @@
                     <td><%= s.getId() %></td>
                     <td><%= s.getDate() != null ? s.getDate() : "-" %></td>
                     <td><%= s.getMotif() %></td>
-                    <td><%= s.getDescription() != null ? s.getDescription() : "-" %></td>
                     <td>
                       <button class="btn btn-sm btn-warning me-1"
     onclick="ouvrirModif('<%= s.getId() %>')">

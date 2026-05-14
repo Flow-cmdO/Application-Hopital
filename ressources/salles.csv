@@ -1,0 +1,8 @@
+id,numero,type,capacite
+401,S-101,Urgences,8
+402,S-102,Chirurgie,6
+403,S-103,Cardiologie,10
+404,S-104,Réanimation,4
+405,S-105,Pédiatrie,12
+406,S-106,Neurologie,8
+407,S-107,Bloc opératoire,2
