@@ -2,17 +2,18 @@ package controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import model.Consultation;
+import model.*;
 import util.Registre;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SoinServlet extends HttpServlet {
 
-    private static final Registre<Consultation> registre = new Registre<>();
-    public static Registre<Consultation> getRegistre() { return registre; }
+    private static final Registre<Soin> registre = new Registre<>();
+    public static Registre<Soin> getRegistre() { return registre; }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -23,24 +24,32 @@ public class SoinServlet extends HttpServlet {
             return;
         }
 
-        String motif = req.getParameter("motif");
-        String date  = req.getParameter("date");
-        String id    = req.getParameter("id");
+        String type      = req.getParameter("type");
+        String dateStr   = req.getParameter("date");
+        String idPatient = req.getParameter("idPatient");
 
-        List<Consultation> liste = registre.getTous();
+        List<Soin> liste = registre.getAll();
 
-        if (motif != null && !motif.isBlank())
-            liste = liste.stream().filter(s -> s.getMotif().toLowerCase().contains(motif.toLowerCase())).collect(Collectors.toList());
-        if (date != null && !date.isBlank())
-            liste = liste.stream().filter(s -> s.getDate() != null && s.getDate().contains(date)).collect(Collectors.toList());
-        if (id != null && !id.isBlank())
-            liste = liste.stream().filter(s -> s.getId().equalsIgnoreCase(id)).collect(Collectors.toList());
+        if (type != null && !type.isBlank())
+            liste = liste.stream()
+                    .filter(s -> s.getTypeSoin().equalsIgnoreCase(type))
+                    .collect(Collectors.toList());
+        if (dateStr != null && !dateStr.isBlank())
+            liste = liste.stream()
+                    .filter(s -> s.getDate().toLocalDate().toString().equals(dateStr))
+                    .collect(Collectors.toList());
+        if (idPatient != null && !idPatient.isBlank()) {
+            int idP = Integer.parseInt(idPatient);
+            liste = liste.stream()
+                    .filter(s -> s.getPatient().getId() == idP)
+                    .collect(Collectors.toList());
+        }
 
         req.setAttribute("totalSoins", registre.taille());
-        req.setAttribute("soins", liste);
-        req.setAttribute("motif", motif);
-        req.setAttribute("date",  date);
-        req.setAttribute("id",    id);
+        req.setAttribute("soins",     liste);
+        req.setAttribute("type",      type);
+        req.setAttribute("date",      dateStr);
+        req.setAttribute("idPatient", idPatient);
         req.getRequestDispatcher("/soins.jsp").forward(req, resp);
     }
 
@@ -58,17 +67,40 @@ public class SoinServlet extends HttpServlet {
         }
     }
 
-
     private void ajouterSoin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         try {
-            String id          = req.getParameter("id");
-            String date        = req.getParameter("date");
-            String description = req.getParameter("description");
-            String motif       = req.getParameter("motif");
+            int           id          = Integer.parseInt(req.getParameter("id"));
+            String nom = req.getParameter("nom");
+            LocalDateTime date        = LocalDateTime.parse(req.getParameter("date"));
+            double        cout        = Double.parseDouble(req.getParameter("cout"));
+            String        type        = req.getParameter("type");
 
-            Consultation c = new Consultation(id, date, description, motif, null, null);
-            registre.ajouter(c);
+            int     idPatient = Integer.parseInt(req.getParameter("idPatient"));
+            int     idMedecin = Integer.parseInt(req.getParameter("idMedecin"));
+            Patient patient   = PatientServlet.getRegistre().getById(idPatient)
+                    .orElseThrow(() -> new Exception("Patient introuvable avec l'id " + idPatient));
+            Medecin medecin   = MedecinServlet.getRegistre().getById(idMedecin)
+                    .orElseThrow(() -> new Exception("Médecin introuvable avec l'id " + idMedecin));
+
+            Soin soin;
+            if ("ACTE_CHIRURGICAL".equals(type)) {
+                String typeChirurgie  = req.getParameter("typeChirurgie");
+                Salle salle   = PatientServlet.getRegistre().getById(idPatient)
+                int    urgence  = Integer.parseInt(req.getParameter("niveauUrgence"));
+                soin = new ActeChirurgical(id, nom, date,
+                         medecin,patient, cout, salle, urgence, typeChirurgie);
+            } else {
+                String motif      = req.getParameter("motif");
+                String ordonnance = req.getParameter("ordonnance");
+                soin = new Consultation(id, nom, date, cout,
+                        patient, medecin, motif, ordonnance);
+            }
+
+            registre.create(soin);
+
+            patient.ajouterSoin(soin);
+            medecin.ajouterSoin(soin);
 
             req.getSession().setAttribute("message", "Soin ajouté avec succès.");
             req.getSession().setAttribute("messageType", "success");
@@ -82,11 +114,12 @@ public class SoinServlet extends HttpServlet {
     private void modifierSoin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         try {
-            String id          = req.getParameter("id");
-            String description = req.getParameter("description");
+            int    id          = Integer.parseInt(req.getParameter("id"));
+            double cout        = Double.parseDouble(req.getParameter("cout"));
 
-            Consultation c = registre.get(id);
-            c.setDescription(description);
+            Soin s = registre.getById(id)
+                    .orElseThrow(() -> new Exception("Soin introuvable avec l'id " + id));
+            s.setCout(cout);
 
             req.getSession().setAttribute("message", "Soin modifié.");
             req.getSession().setAttribute("messageType", "success");
@@ -100,7 +133,8 @@ public class SoinServlet extends HttpServlet {
     private void supprimerSoin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         try {
-            registre.supprimer(req.getParameter("id"));
+            int id = Integer.parseInt(req.getParameter("id"));
+            registre.delete(id);
             req.getSession().setAttribute("message", "Soin supprimé.");
             req.getSession().setAttribute("messageType", "warning");
         } catch (Exception e) {

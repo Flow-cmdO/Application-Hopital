@@ -6,10 +6,11 @@ import model.Medecin;
 import util.Registre;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Medecinservlet extends HttpServlet {
+public class MedecinServlet extends HttpServlet {
 
     private static final Registre<Medecin> registre = new Registre<>();
     public static Registre<Medecin> getRegistre() { return registre; }
@@ -25,21 +26,31 @@ public class Medecinservlet extends HttpServlet {
 
         String nom        = req.getParameter("nom");
         String specialite = req.getParameter("specialite");
+        String service    = req.getParameter("service");
 
-        List<Medecin> liste = registre.getTous();
+        List<Medecin> liste = registre.getAll();
 
         if (nom != null && !nom.isBlank())
-            liste = liste.stream().filter(m -> m.getNom().toLowerCase().contains(nom.toLowerCase())).collect(Collectors.toList());
+            liste = liste.stream()
+                    .filter(m -> m.getNom().toLowerCase().contains(nom.toLowerCase()))
+                    .collect(Collectors.toList());
         if (specialite != null && !specialite.isBlank())
-            liste = liste.stream().filter(m -> m.getSpecialite().toLowerCase().contains(specialite.toLowerCase())).collect(Collectors.toList());
+            liste = liste.stream()
+                    .filter(m -> m.getSpecialite().toLowerCase().contains(specialite.toLowerCase()))
+                    .collect(Collectors.toList());
+        if (service != null && !service.isBlank())
+            liste = liste.stream()
+                    .filter(m -> m.getService().toLowerCase().contains(service.toLowerCase()))
+                    .collect(Collectors.toList());
 
         req.setAttribute("totalMedecins", registre.taille());
         req.setAttribute("medecins",   liste);
         req.setAttribute("nom",        nom);
         req.setAttribute("specialite", specialite);
+        req.setAttribute("service",    service);
         req.getRequestDispatcher("/medecins.jsp").forward(req, resp);
     }
-  
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -54,17 +65,20 @@ public class Medecinservlet extends HttpServlet {
         }
     }
 
-
     private void ajouterMedecin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         try {
-            String id         = req.getParameter("id");
-            String nom        = req.getParameter("nom");
-            String prenom     = req.getParameter("prenom");
-            String specialite = req.getParameter("specialite");
+            int        id           = Integer.parseInt(req.getParameter("id"));
+            String     nom          = req.getParameter("nom");
+            String     prenom       = req.getParameter("prenom");
+            String     matricule    = req.getParameter("matricule");
+            String     service      = req.getParameter("service");
+            int     numOrdre   = Integer.parseInt(req.getParameter("numOrdre"));
+            String     specialite  = req.getParameter("specialite");
 
-            Medecin m = new Medecin(id, nom, prenom, specialite);
-            registre.ajouter(m);
+            Medecin m = new Medecin(nom, prenom, id, matricule,
+                                    service, numOrdre, specialite);
+            registre. create(m);
 
             req.getSession().setAttribute("message", "Médecin ajouté avec succès.");
             req.getSession().setAttribute("messageType", "success");
@@ -78,11 +92,15 @@ public class Medecinservlet extends HttpServlet {
     private void modifierMedecin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         try {
-            String id         = req.getParameter("id");
+            int    id         = Integer.parseInt(req.getParameter("id"));
             String specialite = req.getParameter("specialite");
+            String service    = req.getParameter("service");
+            double salaire    = Double.parseDouble(req.getParameter("salaire"));
 
-            Medecin m = registre.get(id);
+            Medecin m = registre.getById(id)
+                    .orElseThrow(() -> new Exception("Médecin introuvable avec l'id " + id));
             m.setSpecialite(specialite);
+            m.setService(service);
 
             req.getSession().setAttribute("message", "Médecin modifié.");
             req.getSession().setAttribute("messageType", "success");
@@ -96,7 +114,8 @@ public class Medecinservlet extends HttpServlet {
     private void supprimerMedecin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         try {
-            registre.supprimer(req.getParameter("id"));
+            int id = Integer.parseInt(req.getParameter("id"));
+            registre.delete(id);
             req.getSession().setAttribute("message", "Médecin supprimé.");
             req.getSession().setAttribute("messageType", "warning");
         } catch (Exception e) {
