@@ -12,7 +12,7 @@ public class Registre<T extends Entite> {
 
     // Create
     public void create(T entite) {
-        if (entites.isEmpty()) {
+        if (entite == null) {
             throw new IllegalArgumentException("L'entité ne peut pas être vide.");
         }
         if (entites.containsKey(entite.getId())) {
@@ -37,7 +37,7 @@ public class Registre<T extends Entite> {
 
     // Update
     public void update(T entite) {
-        if (entites.isEmpty()) {
+        if (entite == null) {
             throw new IllegalArgumentException("L'entité ne peut pas être vide.");
         }
         if (!entites.containsKey(entite.getId())) {
@@ -48,7 +48,7 @@ public class Registre<T extends Entite> {
 
     // Delete
     public void delete(int id) {
-        if (entites.isEmpty()) {
+        if (entite == null) {
             throw new IllegalArgumentException("L'entité ne peut pas être vide.");
         }
         if (!entites.containsKey(id)) {

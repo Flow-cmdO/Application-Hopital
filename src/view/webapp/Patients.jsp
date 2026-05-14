@@ -74,7 +74,6 @@
                     <td><%= p.getId() %></td>
                     <td><%= p.getNom() %></td>
                     <td><%= p.getPrenom() %></td>
-                    <td><%= p.getDateNaissance() != null ? p.getDateNaissance() : "-" %></td>
                     <td>
                         <button class="btn btn-sm btn-warning me-1" onclick="ouvrirModif('<%= p.getId() %>', '<%= p.getNom() %>', '<%= p.getPrenom() %>')"><i class="bi bi-pencil"></i></button>
                         <a href="patients?action=supprimer&id=<%= p.getId() %>" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce patient ?')"><i class="bi bi-trash"></i></a>
