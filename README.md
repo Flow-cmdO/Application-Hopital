@@ -12,9 +12,6 @@ Le système repose sur une architecture orientée objet avec des classes abstrai
 ## Technologie d'interface
 **Option B - Web (Servlet/JSP) avec Apache Tomcat**
 Nous avons choisi l’option B du cahier des charges,une application web en Servlet/JSP, car cette technologie nous semblait plus familière et plus adaptée pour créer une interface accessible et organisée.
-
-## Instructions de compliation et d'exécution
-
   
 ## Liste des fonctionnalités
 - Gestion des patients : dossier médical, antécédents, facturation
@@ -29,5 +26,5 @@ Nous avons choisi l’option B du cahier des charges,une application web en Serv
 |---|---|
 | **TANOH Laetitia** | Diagramme UML, architecture MVC, controllers (Servlets), classes métier, rapport de conception, présentation PowerPoint
 | **VOUSEMER Doryan** | Résolutions de problèmes techniques, intégration et débogage
-| **LOKO-BILLE Marie-Paule-Yvette** | Statistiques
-| **NICAUD Rosalie** | Classes métier, rapport de conception, présentation PowerPoint
+| **LOKO-BILLE Marie-Paule-Yvette** | Statistiques, classes métiers
+| **NICAUD Rosalie** | Classes métier, controllers, rapport de conception, présentation PowerPoint
