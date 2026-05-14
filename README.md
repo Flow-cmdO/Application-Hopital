@@ -24,7 +24,9 @@ Nous avons choisi l’option B du cahier des charges,une application web en Serv
 - Statistiques dynamiques sur le tableau de bord
   
 ## Répartition des tâches entre les membres 
-TANOH Laetitia : Diagramme UML, architecture MVC, controllers (Servlets), classes métier, rapport de conception, présentation PowerPoint
-VOUSEMER Doryan : Résolutions de problèmes techniques, intégration et débogage
-LOKO-BILLE Marie-Paule-Yvette : Statistiques
-NICAUD Rosalie : Classes métier, rapport de conception, présentation PowerPoint
+| Membre | Tâches |
+|---|---|
+| **TANOH Laetitia** | Diagramme UML, architecture MVC, controllers (Servlets), classes métier, rapport de conception, présentation PowerPoint
+| **VOUSEMER Doryan** | Résolutions de problèmes techniques, intégration et débogage
+| **LOKO-BILLE Marie-Paule-Yvette** | Statistiques
+| **NICAUD Rosalie** | Classes métier, rapport de conception, présentation PowerPoint
