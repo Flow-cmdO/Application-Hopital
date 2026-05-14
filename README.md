@@ -1,6 +1,7 @@
-# Application-Hopital
-Cette application est une application de gestion métier d'un hôpital
+#Gestionnaire Hôspitalier
 
+## Nom du projet et du groupe
+**Application-Hopital**
 Crée par VOUSEMER Doryan, TANOH Laetitia, LOKO Marie-Paule et NICAUD Rosalie
 
 ## Description métier
