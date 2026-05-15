@@ -26,5 +26,5 @@ Nous avons choisi l’option B du cahier des charges,une application web en Serv
 |---|---|
 | **TANOH Laetitia** | Diagramme UML, architecture MVC, controllers (Servlets), classes métier, rapport de conception, présentation PowerPoint
 | **VOUSEMER Doryan** | Résolutions de problèmes techniques, intégration et débogage,  architecture MVC
-| **LOKO-BILLE Marie-Paule-Yvette** | Statistiques, classes métier
+| **LOKO-BILLE Marie-Paule-Yvette** | Statistiques, classes métier, tri dynamique 
 | **NICAUD Rosalie** | Classes métier, controllers, rapport de conception, présentation PowerPoint
